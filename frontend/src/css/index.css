@@ -1,0 +1,23 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+main {
+  min-height: 100vh;
+}
+
+.layout {
+  display: grid;
+  grid-template-rows: 20vh 80vh;
+}
+
+.layout .layout-logo {
+  background-color: #fff;
+}
+
+.layout .layout-form {
+  background-color: #353c7c;
+  border-radius: 35px 35px 0 0;
+}
