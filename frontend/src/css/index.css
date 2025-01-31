@@ -1,0 +1,101 @@
+@font-face {
+  font-family: "ITC Franklin Gothic Std";
+  src: url(../../fonts/ITCFranklinGothicStd-Med.ttf);
+}
+
+:root {
+  --primary-color: #353c7c
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "ITC Franklin Gothic Std";
+  font-size: 1rem;
+}
+
+main {
+  min-height: 100vh;
+}
+
+.layout {
+  display: grid;
+  grid-template-rows: 20vh 80vh;
+}
+
+.layout .layout-logo {
+  background-color: #fff;
+}
+
+.layout .layout-form {
+  background-color: var(--primary-color);
+  border-radius: 35px 35px 0 0;
+  flex-direction: row; 
+  place-content: center;
+}
+
+.area-content {
+  border-radius: 10px;
+  margin: 0 50px;
+  background-color: #fff;
+  display: flex;
+  place-content: center;
+}
+
+.area-content .form-content {
+  width: 100%;
+  padding: 20px 10px 10px 10px;
+}
+
+.input {
+  margin-bottom: 20px;
+}
+
+input::placeholder, textarea::placeholder {
+  font-style: italic;
+}
+
+.form-content p {
+  font-size: 1.2rem;
+}
+
+.form-content .input-name {
+  padding: 5px;
+  outline: none;
+  border: 2px solid #353c7c;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.form-content .input-computer {
+  padding: 5px;
+  outline: none;
+  border: 2px solid #353c7c;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.form-content .input-problem {
+  padding: 5px;
+  height: 100px;
+  outline: none;
+  border: 2px solid #353c7c;
+  width: 100%;
+  border-radius: 7px;
+}
+
+.btn-submit {
+  display: block;
+  width: 50%;
+  background-color: #353c7c;
+  color: #fff;
+}
+
+
+
+
+
