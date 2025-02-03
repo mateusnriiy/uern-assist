@@ -83,6 +83,7 @@ input::placeholder, textarea::placeholder {
 
 .form-content p {
   font-size: 1.2rem;
+  color: #353c7c;
 }
 
 .form-content .input-name {
@@ -111,17 +112,22 @@ input::placeholder, textarea::placeholder {
 }
 
 .btn-container {
+  background-color: #353c7c;
   display: flex;
-  place-content: center;
+  justify-content: center;
+  align-items: center;
 }
-.btn-submit {
+
+.btn-container .btn-submit {
   display: block;
-  width: 50%;
+  width: 40%;
+  margin-top: 20px;
   padding: 10px 20px;
   border-radius: 30px;
   border: none;
   cursor: pointer;
-  background-color: #353c7c;
-  color: #fff;
-}
- 
+  background-color: #fff;
+  color: #353c7c;
+  font-size: 1rem;
+  font-weight: bold;
+} 
