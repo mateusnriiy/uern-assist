@@ -12,7 +12,7 @@ function App() {
         </div>
         <div className='layout-form'>
           <div className='logo-layout'>
-            <img src="../assets/Logo-UernAssist.png" alt="Logo do Sistema" className='logo-sistem' />
+            <img src="../assets/Logo-UernAssist.png" alt="Logo do Sistema" className='logo-system' />
           </div>
           <Form />
           <div className='btn-container'>

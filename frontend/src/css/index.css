@@ -4,7 +4,9 @@
 }
 
 :root {
-  --primary-color: #353c7c
+  --primary-color: #fff;
+  --main-color: #353c7c;
+  --btn-effect: #3ae1ac;
 }
 
 * {
@@ -28,7 +30,7 @@ main {
 }
 
 .layout .layout-logo {
-  background-color: #fff;
+  background-color: var(--primary-color);
 }
 
 .logo-layoutdti {
@@ -44,9 +46,9 @@ main {
 }
 
 .layout .layout-form {
-  background-color: var(--primary-color);
+  background-color: var(--main-color);
   border-radius: 35px 35px 0 0;
-  flex-direction: row; 
+  flex-direction: row;
   place-content: center;
 }
 
@@ -55,7 +57,7 @@ main {
   margin-bottom: 50px;
 }
 
-.logo-layout .logo-sistem {
+.logo-layout .logo-system {
   width: 200px;
   height: auto;
 }
@@ -63,7 +65,7 @@ main {
 .area-content {
   border-radius: 10px;
   margin: 0 50px;
-  background-color: #fff;
+  background-color: var(--primary-color);
   display: flex;
   place-content: center;
 }
@@ -77,48 +79,39 @@ main {
   margin-bottom: 20px;
 }
 
-input::placeholder, textarea::placeholder {
+input::placeholder,
+textarea::placeholder {
   font-style: italic;
 }
 
-.form-content p {
+.form-content label {
   font-size: 1.2rem;
-  color: #353c7c;
+  color: var(--main-color);
 }
 
-.form-content .input-name {
+.input-name,
+.input-computer,
+.input-problem {
   padding: 5px;
   outline: none;
-  border: 2px solid #353c7c;
-  width: 100%;
-  border-radius: 8px;
-}
-
-.form-content .input-computer {
-  padding: 5px;
-  outline: none;
-  border: 2px solid #353c7c;
+  border: 2px solid var(--main-color);
   width: 100%;
   border-radius: 8px;
 }
 
 .form-content .input-problem {
-  padding: 5px;
-  height: 100px;
-  outline: none;
-  border: 2px solid #353c7c;
   width: 100%;
-  border-radius: 7px;
+  resize: none;
 }
 
 .btn-container {
-  background-color: #353c7c;
+  background-color: var(--main-color);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.btn-container .btn-submit {
+.btn-submit {
   display: block;
   width: 40%;
   margin-top: 20px;
@@ -126,8 +119,13 @@ input::placeholder, textarea::placeholder {
   border-radius: 30px;
   border: none;
   cursor: pointer;
-  background-color: #fff;
-  color: #353c7c;
+  background-color: var(--primary-color);
+  color: var(--main-color);
   font-size: 1rem;
   font-weight: bold;
-} 
+}
+
+.btn-submit:active {
+  background-color: var(--btn-effect);
+  color: var(--primary-color);
+}
