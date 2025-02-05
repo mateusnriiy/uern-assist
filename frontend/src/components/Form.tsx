@@ -16,7 +16,6 @@ function Form() {
           name="problema"
           rows={8}>
         </textarea>
-
       </form>
     </div>
   )

@@ -41,8 +41,8 @@ main {
 }
 
 .logo-dti {
-  width: 350px;
-  height: auto;
+  width: 80%;
+  max-width: 300px;
 }
 
 .layout .layout-form {
@@ -113,7 +113,7 @@ textarea::placeholder {
 
 .btn-submit {
   display: block;
-  width: 40%;
+  width: 70%;
   margin-top: 20px;
   padding: 10px 20px;
   border-radius: 30px;
@@ -128,4 +128,15 @@ textarea::placeholder {
 .btn-submit:active {
   background-color: var(--btn-effect);
   color: var(--primary-color);
+}
+
+@media (min-width: 769px) {
+  .area-content {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .btn-submit {
+    width: 50%;
+  }
 }
