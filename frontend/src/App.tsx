@@ -1,25 +1,18 @@
-import Form from './components/Form.tsx';
 import './css/index.css';
+import Button from './components/Button.tsx';
+import Form from './components/Form.tsx';
+import Header from './components/Header.tsx';
+import SystemLogo from './components/SystemLogo.tsx';
 
 function App() {
   return (
     <main>
       <div className='layout'>
-        <div className='layout-logo'>
-          <div className='logo-layoutdti'>
-            <img src="../assets/Logo-UernDTI.png" alt="Logo do DTI" className='logo-dti' />
-          </div>
-        </div>
+        <Header />
         <div className='layout-form'>
-          <div className='logo-layout'>
-            <img src="../assets/Logo-UernAssist.png" alt="Logo do Sistema" className='logo-system' />
-          </div>
+          <SystemLogo />
           <Form />
-          <div className='btn-container'>
-            <button className='btn-submit' type='submit'>
-              Enviar
-            </button>
-          </div>
+          <Button />
         </div>
       </div>
     </main>
