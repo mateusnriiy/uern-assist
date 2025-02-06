@@ -130,6 +130,10 @@ textarea::placeholder {
   color: var(--primary-color);
 }
 
+.msg-error {
+  border: 1px solid red;
+}
+
 @media (min-width: 769px) {
   .area-content {
     max-width: 900px;
