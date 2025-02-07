@@ -20,7 +20,7 @@ function App() {
         <div className='layout-form'>
           <SystemLogo />
           <Form setFormDados={setFormDados} />
-          <Button />
+          <Button dados={formDados} />
         </div>
       </div>
     </main>
