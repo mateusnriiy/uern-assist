@@ -6,7 +6,7 @@
 :root {
   --primary-color: #fff;
   --main-color: #353c7c;
-  --btn-effect: #3ae1ac;
+  --btn-effect: #38b6ff;
 }
 
 * {
@@ -79,10 +79,10 @@ main {
   margin-bottom: 20px;
 }
 
-input::placeholder,
+/* input::placeholder,
 textarea::placeholder {
   font-style: italic;
-}
+} */
 
 .form-content label {
   font-size: 1.2rem;
@@ -90,10 +90,11 @@ textarea::placeholder {
 }
 
 .input-name,
-.input-computer,
-.input-problem {
+.input-problem,
+.select-content {
   padding: 5px;
   outline: none;
+  background-color: var(--primary-color);
   border: 2px solid var(--main-color);
   width: 100%;
   border-radius: 8px;
@@ -102,6 +103,7 @@ textarea::placeholder {
 .form-content .input-problem {
   width: 100%;
   resize: none;
+  font-family: "ITC Franklin Gothic Std";
 }
 
 .custom-select {
@@ -111,30 +113,7 @@ textarea::placeholder {
   margin-bottom: 20px;
 }
 
-.custom-select::after {
-  content: '\2193';
-  position: absolute;
-  top: 50%;
-  right: 12px;
-  transform: translateY(-50%);
-  color: #777;
-}
-
-.select-content {
-  display: block;
-  width: 100%;
-  padding: 12px 40px 12px 12px;
-  background-color: var(--primary-color);
-  border: 2px solid var(--main-color);
-  border-radius: 8px;
-  appearance: none;
-  cursor: pointer;
-  outline: none;
-  transition: all 0.2s ease-in-out;
-}
-
 .btn-container {
-  background-color: var(--main-color);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -150,7 +129,8 @@ textarea::placeholder {
   cursor: pointer;
   background-color: var(--primary-color);
   color: var(--main-color);
-  font-size: 1rem;
+  font-size: 1.3rem;
+  letter-spacing: 1.5px;
   font-weight: bold;
 }
 
@@ -173,3 +153,8 @@ textarea::placeholder {
     width: 50%;
   }
 }
+
+/* .teste {
+  color: red;
+  font-size: 8px;
+} */

@@ -8,13 +8,13 @@ function Form({ setFormDados }: FormProps) {
   const [feed, setFeed] = useState<string>('');
   const [errors, setErrors] = useState<{ nome: boolean; pcId: boolean; feed: boolean }>({ nome: false, pcId: false, feed: false });
 
-  const pcs = Array.from({ length: 28 }, (_, i) => `CAM-${(i + 1).toString().padStart(2, '0')}`);
+  const pcs = Array.from({ length: 28 }, (_, i) => `CAN-${(i + 1).toString().padStart(2, '0')}`);
 
   const handleValidation = () => {
     setErrors({
-      nome: nome.length < 5,
-      pcId: pcId.length < 1,
-      feed: feed.length < 3,
+      nome: nome.length < 3,
+      pcId: pcId.length === 0,
+      feed: feed.length < 5,
     })
   }
 
@@ -34,14 +34,16 @@ function Form({ setFormDados }: FormProps) {
           onBlur={handleValidation}
           className={`input input-name ${errors.nome ? 'msg-error' : ''}`}
           type="text" />
+        {/* {errors.nome && <span className='teste'>Nome não pode estar vazio.</span>} */}
 
         <label>Computador</label>
         <div className='custom-select'>
           <select
             value={pcId}
-            className='select-content'
+            className={`select-content ${errors.pcId ? 'msg-error' : ''}`}
+            onBlur={handleValidation}
             onChange={(e) => handleChange(setPcId, e.target.value)}>
-            <option value="">Selecione uma máquina</option>
+            <option disabled={true} value="">Selecione uma máquina</option>
             {pcs.map((pc) => (
               <option key={pc} value={pc}>{pc}</option>
             ))}
@@ -49,11 +51,11 @@ function Form({ setFormDados }: FormProps) {
         </div>
 
         <label>Informe o problema</label>
-        <textarea placeholder='Informe...'
+        <textarea placeholder='Informe detalhes do problema'
           value={feed}
           onChange={(e) => handleChange(setFeed, e.target.value)}
           onBlur={handleValidation}
-          className={`input input-name ${errors.feed ? 'msg-error' : ''}`}
+          className={`input input-problem ${errors.feed ? 'msg-error' : ''}`}
           rows={8}>
         </textarea>
       </form>
