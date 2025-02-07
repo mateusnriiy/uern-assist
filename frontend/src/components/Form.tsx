@@ -13,8 +13,8 @@ function Form({ setFormDados }: FormProps) {
   const handleValidation = () => {
     setErrors({
       nome: nome.length < 5,
-      pcId: false,
-      feed: feed.length < 10,
+      pcId: pcId.length < 1,
+      feed: feed.length < 3,
     })
   }
 
@@ -36,17 +36,17 @@ function Form({ setFormDados }: FormProps) {
           type="text" />
 
         <label>Computador</label>
-        <div>
-          <select value={pcId} onChange={(e) => handleChange(setPcId, e.target.value)}>
+        <div className='custom-select'>
+          <select
+            value={pcId}
+            className='select-content'
+            onChange={(e) => handleChange(setPcId, e.target.value)}>
             <option value="">Selecione uma máquina</option>
             {pcs.map((pc) => (
               <option key={pc} value={pc}>{pc}</option>
             ))}
           </select>
         </div>
-        {/* <input placeholder='Ex: CAN-01'
-          className={`input input-computer`}
-          type="text" /> */}
 
         <label>Informe o problema</label>
         <textarea placeholder='Informe...'
