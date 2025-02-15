@@ -1,63 +1,67 @@
-import React, { useState } from 'react';
 import '../css/index.css';
+import React, { useState } from 'react';
 import { FormProps } from '../interfaces/FormInterface';
 
-function Form({ setFormDados }: FormProps) {
+function Form({ setFormDados, errors, setErrors }: FormProps) {
   const [nome, setNome] = useState<string>('');
   const [pcId, setPcId] = useState<string>('');
   const [feed, setFeed] = useState<string>('');
-  const [errors, setErrors] = useState<{ nome: boolean; pcId: boolean; feed: boolean }>({ nome: false, pcId: false, feed: false });
 
   const pcs = Array.from({ length: 28 }, (_, i) => `CAN-${(i + 1).toString().padStart(2, '0')}`);
 
-  const handleValidation = () => {
-    setErrors({
-      nome: nome.length < 3,
-      pcId: pcId.length === 0,
-      feed: feed.length < 5,
-    })
+  const handleValidation = (campo: string, value: string) => {
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [campo]: campo === 'pcId' ? value === '' : value.length < (campo === 'nome' ? 3 : 5)
+    }))
   }
 
-  const handleChange = (setter: React.Dispatch<React.SetStateAction<string>>, value: string) => {
+  const handleChange = (setter: React.Dispatch<React.SetStateAction<string>>, value: string, campo: string) => {
     setter(value);
-    handleValidation();
-    setFormDados((prev) => ({ ...prev, [setter === setNome ? 'nome' : setter === setPcId ? 'pcId' : 'feed']: value }));
+    setFormDados((prev) => ({ ...prev, [campo]: value }));
+    handleValidation(campo, value)
   }
 
   return (
     <div className="area-content">
       <form action='' className='form-content'>
-        <label>Nome</label>
-        <input placeholder='Ex: João Maria'
-          value={nome}
-          onChange={(e) => handleChange(setNome, e.target.value)}
-          onBlur={handleValidation}
-          className={`input input-name ${errors.nome ? 'msg-error' : ''}`}
-          type="text" />
-        {/* {errors.nome && <span className='teste'>Nome não pode estar vazio.</span>} */}
+        <div>
+          <label>Nome</label>
+          <input placeholder='Ex: João Maria'
+            value={nome}
+            onChange={(e) => handleChange(setNome, e.target.value, 'nome')}
+            onBlur={(e) => handleValidation('nome', e.target.value)}
+            className={`input input-name ${errors.nome ? 'ef-error' : ''}`}
+            type="text" />
+          {errors.nome && <span style={{ marginTop: "5px" }} className='msg-error'>Nome deve ter pelo menos três caracteres.</span>}
+        </div>
 
-        <label>Computador</label>
         <div className='custom-select'>
+          <label>Computador</label>
           <select
             value={pcId}
-            className={`select-content ${errors.pcId ? 'msg-error' : ''}`}
-            onBlur={handleValidation}
-            onChange={(e) => handleChange(setPcId, e.target.value)}>
+            className={`select-content ${errors.pcId ? 'ef-error' : ''}`}
+            onBlur={(e) => handleValidation('pcId', e.target.value)}
+            onChange={(e) => handleChange(setPcId, e.target.value, 'pcId')}>
             <option disabled={true} value="">Selecione uma máquina</option>
             {pcs.map((pc) => (
               <option key={pc} value={pc}>{pc}</option>
             ))}
           </select>
+          {errors.pcId && <span style={{ marginTop: "5px" }} className='msg-error'>Selecione uma máquina para prosseguir.</span>}
         </div>
 
-        <label>Informe o problema</label>
-        <textarea placeholder='Informe detalhes do problema'
-          value={feed}
-          onChange={(e) => handleChange(setFeed, e.target.value)}
-          onBlur={handleValidation}
-          className={`input input-problem ${errors.feed ? 'msg-error' : ''}`}
-          rows={8}>
-        </textarea>
+        <div>
+          <label>Informe o problema</label>
+          <textarea placeholder='Informe detalhes do problema'
+            value={feed}
+            onChange={(e) => handleChange(setFeed, e.target.value, 'feed')}
+            onBlur={(e) => handleValidation('feed', e.target.value)}
+            className={`input input-problem ${errors.feed ? 'ef-error' : ''}`}
+            rows={8}>
+          </textarea>
+          {errors.feed && <span className='msg-error'>Descreva o problema para prosseguir.</span>}
+        </div>
       </form>
     </div>
   )

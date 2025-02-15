@@ -2,13 +2,19 @@ import React from 'react';
 import '../css/index.css';
 import { ButtonProps } from '../interfaces/ButtonInterface';
 
-const Button: React.FC<ButtonProps> = ({ dados }) => {
+const Button: React.FC<ButtonProps> = ({ dados, setErrors }) => {
   const handleClick = () => {
-    if (!dados.nome) return alert('Nome não pode estar vazio!');
-    if (!dados.pcId) return alert('Informe uma máquina!');
-    if (!dados.feed) return alert('Informe um problema!');
+    const novosErrors = {
+      nome: dados.nome.length < 3,
+      pcId: dados.pcId === '',
+      feed: dados.feed.length < 3
+    }
 
-    console.log({ dados });
+    setErrors(novosErrors);
+
+    if (Object.values(novosErrors).some((error) => error)) return;
+
+    alert('Tudo ok!');
   }
 
   return (
