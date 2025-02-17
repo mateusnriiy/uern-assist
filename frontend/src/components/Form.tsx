@@ -1,12 +1,7 @@
 import '../css/index.css';
-import React, { useState } from 'react';
 import { FormProps } from '../interfaces/FormInterface';
 
-function Form({ setFormDados, errors, setErrors }: FormProps) {
-  const [nome, setNome] = useState<string>('');
-  const [pcId, setPcId] = useState<string>('');
-  const [feed, setFeed] = useState<string>('');
-
+function Form({ formDados, setFormDados, errors, setErrors }: FormProps) {
   const pcs = Array.from({ length: 28 }, (_, i) => `CAN-${(i + 1).toString().padStart(2, '0')}`);
 
   const handleValidation = (campo: string, value: string) => {
@@ -16,8 +11,7 @@ function Form({ setFormDados, errors, setErrors }: FormProps) {
     }))
   }
 
-  const handleChange = (setter: React.Dispatch<React.SetStateAction<string>>, value: string, campo: string) => {
-    setter(value);
+  const handleChange = (value: string, campo: string) => {
     setFormDados((prev) => ({ ...prev, [campo]: value }));
     handleValidation(campo, value)
   }
@@ -28,8 +22,8 @@ function Form({ setFormDados, errors, setErrors }: FormProps) {
         <div>
           <label>Nome</label>
           <input placeholder='Ex: João Maria'
-            value={nome}
-            onChange={(e) => handleChange(setNome, e.target.value, 'nome')}
+            value={formDados.nome}
+            onChange={(e) => handleChange(e.target.value, 'nome')}
             onBlur={(e) => handleValidation('nome', e.target.value)}
             className={`input input-name ${errors.nome ? 'ef-error' : ''}`}
             type="text" />
@@ -39,10 +33,10 @@ function Form({ setFormDados, errors, setErrors }: FormProps) {
         <div className='custom-select'>
           <label>Computador</label>
           <select
-            value={pcId}
+            value={formDados.pcId}
             className={`select-content ${errors.pcId ? 'ef-error' : ''}`}
             onBlur={(e) => handleValidation('pcId', e.target.value)}
-            onChange={(e) => handleChange(setPcId, e.target.value, 'pcId')}>
+            onChange={(e) => handleChange(e.target.value, 'pcId')}>
             <option disabled={true} value="">Selecione uma máquina</option>
             {pcs.map((pc) => (
               <option key={pc} value={pc}>{pc}</option>
@@ -54,8 +48,8 @@ function Form({ setFormDados, errors, setErrors }: FormProps) {
         <div>
           <label>Informe o problema</label>
           <textarea placeholder='Informe detalhes do problema'
-            value={feed}
-            onChange={(e) => handleChange(setFeed, e.target.value, 'feed')}
+            value={formDados.feed}
+            onChange={(e) => handleChange(e.target.value, 'feed')}
             onBlur={(e) => handleValidation('feed', e.target.value)}
             className={`input input-problem ${errors.feed ? 'ef-error' : ''}`}
             rows={8}>

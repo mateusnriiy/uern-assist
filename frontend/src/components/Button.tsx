@@ -2,7 +2,7 @@ import React from 'react';
 import '../css/index.css';
 import { ButtonProps } from '../interfaces/ButtonInterface';
 
-const Button: React.FC<ButtonProps> = ({ dados, setErrors }) => {
+const Button: React.FC<ButtonProps> = ({ dados, setErrors, onSuccess }) => {
   const handleClick = () => {
     const novosErrors = {
       nome: dados.nome.length < 3,
@@ -14,7 +14,7 @@ const Button: React.FC<ButtonProps> = ({ dados, setErrors }) => {
 
     if (Object.values(novosErrors).some((error) => error)) return;
 
-    alert('Tudo ok!');
+    onSuccess();
   }
 
   return (
