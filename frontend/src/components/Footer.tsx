@@ -3,7 +3,7 @@ const Footer = () => {
 
   return (
     <footer>
-      <p>Desenvolvido por alunos para alunos 🤟</p>
+      <p>By Lucas Lima e Mateus Neri</p>
       <p>&copy; {anoAtual} | Todos os os direitos reservados.</p>
     </footer>
   )
