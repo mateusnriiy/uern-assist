@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace backend.models
 {
-    public class Solicitacao
+    public class Solicitacoes
     {
         [Key]
         public int Id { get; set; }
