@@ -1,62 +1,152 @@
-using Microsoft.EntityFrameworkCore;
+﻿using backend.Data;
+using backend.DTO;
+using backend.DTOs;
 using backend.models;
-using backend.Data;
+using backend.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Services
 {
-    public class SolicitacoesService
+    public class SolicitacoesService : ISolicitacoesInterface
     {
-        private readonly AppDbContext _context;
 
+        private readonly AppDbContext _context;
         public SolicitacoesService(AppDbContext context)
         {
             _context = context;
         }
-
-        public async Task<Solicitacoes> CriarSolicitacao(Solicitacoes novaSolicitacao)
+        public async Task<ResponseModel<SolicitacoesModel>> BuscarPorId(int idSolicitacoes)
         {
-            _context.Solicitacoes.Add(novaSolicitacao);
-            await _context.SaveChangesAsync();
-            return novaSolicitacao;
+            ResponseModel<SolicitacoesModel> resposta = new ResponseModel<SolicitacoesModel>();
+            try
+            {
+                var solicitacao = await _context.Solicitacoes.FirstOrDefaultAsync(solicitacaoDb => solicitacaoDb.Id == idSolicitacoes);
+
+                if (solicitacao == null)
+                {
+                    resposta.Mensagem = "Nenhum registro localizado";
+                    return resposta;
+                }
+
+                resposta.Dados = solicitacao;
+                resposta.Mensagem = "Solicitacao localizada"; 
+
+                return resposta;
+            }
+            catch (Exception ex)
+            {
+                resposta.Mensagem = ex.Message;
+                resposta.Status = false;
+                return resposta;
+            }
         }
 
-        public async Task<List<Solicitacoes>> GetSolicitacoes()
+        public async Task<ResponseModel<List<SolicitacoesModel>>> CriarSolicitacao(SolicitacoesDTO solicitacoesDTO)
         {
-            return await _context.Solicitacoes.ToListAsync();
+            ResponseModel<List<SolicitacoesModel>> resposta = new ResponseModel<List<SolicitacoesModel>>();
+
+            try
+            {
+                var solicitacao = new SolicitacoesModel()
+                {
+                    Nome = solicitacoesDTO.Nome,
+                    PcId = solicitacoesDTO.PcId,
+                    FeedBack = solicitacoesDTO.Feedback,
+                    Departamento = solicitacoesDTO.Departamento
+                };
+
+                _context.Add(solicitacao);
+                resposta.Dados = await _context.Solicitacoes.ToListAsync();
+                return resposta;
+
+            }
+            catch (Exception ex)
+            {
+                resposta.Mensagem = ex.Message;
+                resposta.Status = false;
+                return resposta;
+            }
         }
 
-        public async Task<Solicitacoes?> GetSolicitacaoPorId(int id)
+        public async Task<ResponseModel<List<SolicitacoesModel>>> EditarSolicitacoes(EditarSolicitacoesDTO editarSolicitacoesDTO)
         {
-            return await _context.Solicitacoes.FindAsync(id);
+            ResponseModel<List<SolicitacoesModel>> resposta = new ResponseModel<List<SolicitacoesModel>>();
+
+            try
+            {
+                var solicitacao = await _context.Solicitacoes.FirstOrDefaultAsync(solicitacaoDb => solicitacaoDb.Id == editarSolicitacoesDTO.Id);
+
+                if (solicitacao == null)
+                {
+                    resposta.Mensagem = "Nenhum registro localizado";
+                    return resposta;
+                }
+
+                solicitacao.Status = editarSolicitacoesDTO.Status;
+                solicitacao.Departamento = editarSolicitacoesDTO.Departamento;
+
+                _context.Update(solicitacao);
+                await _context.SaveChangesAsync();
+
+                resposta.Dados = await _context.Solicitacoes.ToListAsync();
+                return resposta;
+
+            }
+            catch (Exception ex)
+            {
+                resposta.Mensagem = ex.Message;
+                resposta.Status = false;
+                return resposta;
+            }
         }
 
-        public async Task<List<Solicitacoes>> GetSolicitacoesConcluidas()
+        public async Task<ResponseModel<List<SolicitacoesModel>>> ExcluirSolicitacoes(int idSolicitacao)
         {
-            return await _context.Solicitacoes.Where(s => s.Status == "Concluído").ToListAsync();
+            ResponseModel<List<SolicitacoesModel>> resposta = new ResponseModel<List<SolicitacoesModel>>();
+
+            try
+            {
+                var solicitacao = await _context.Solicitacoes.FirstOrDefaultAsync(solicitacaoDb => solicitacaoDb.Id == idSolicitacao);
+
+                if (solicitacao == null)
+                {
+                    resposta.Mensagem = "Nenhum registro localizado";
+                    return resposta;
+                }
+
+                _context.Remove(solicitacao);
+                await _context.SaveChangesAsync();
+
+                resposta.Dados = await _context.Solicitacoes.ToListAsync();
+                resposta.Mensagem = "Autor Removido com sucesso.";
+
+                return resposta;
+            }
+            catch (Exception ex)
+            {
+                resposta.Mensagem = ex.Message;
+                resposta.Status = false;
+                return resposta;
+            }
         }
 
-        public async Task<bool> AtualizarSolicitacao(int id, Solicitacoes solicitacaoAtt)
+        public async Task<ResponseModel<List<SolicitacoesModel>>> ListarTodos()
         {
-            var solicitacao = await _context.Solicitacoes.FindAsync(id);
+            ResponseModel<List<SolicitacoesModel>> resposta = new ResponseModel<List<SolicitacoesModel>>();
+            try
+            {
+                var solicitacoes = await _context.Solicitacoes.ToListAsync();
 
-            if (solicitacao == null) return false;
+                resposta.Dados = solicitacoes;
 
-            solicitacao.Status = solicitacaoAtt.Status;
-            //solicitacao.FeedBack = solicitacaoAtt.FeedBack;
-
-            await _context.SaveChangesAsync();
-            return true;
-        }
-
-        public async Task<bool> DeletarSolicitacao(int id)
-        {
-            var solicitacao = await _context.Solicitacoes.FindAsync(id);
-
-            if (solicitacao == null) return false;
-
-            _context.Solicitacoes.Remove(solicitacao);
-            await _context.SaveChangesAsync();
-            return true;
+                return resposta; 
+            }
+            catch (Exception ex)
+            {
+                resposta.Mensagem = ex.Message;
+                resposta.Status = false;
+                return resposta;
+            }
         }
     }
 }
