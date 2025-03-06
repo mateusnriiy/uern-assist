@@ -17,7 +17,6 @@ namespace backend.models
         [Required]
         [MinLength(5)]
         public string FeedBack { get; set; } = string.Empty;
-
         public string Departamento { get; set; } = string.Empty;
         public string Status { get; set; } = "Pendente";
         public DateTime DataCriacao { get; set; } = DateTime.Now;
