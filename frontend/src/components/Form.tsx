@@ -48,13 +48,13 @@ function Form({ formDados, setFormDados, errors, setErrors }: FormProps) {
         <div>
           <label>Informe o problema</label>
           <textarea placeholder='Informe detalhes do problema'
-            value={formDados.feed}
-            onChange={(e) => handleChange(e.target.value, 'feed')}
+            value={formDados.feedback}
+            onChange={(e) => handleChange(e.target.value, 'feedback')}
             onBlur={(e) => handleValidation('feed', e.target.value)}
-            className={`input input-problem ${errors.feed ? 'ef-error' : ''}`}
+            className={`input input-problem ${errors.feedback ? 'ef-error' : ''}`}
             rows={8}>
           </textarea>
-          {errors.feed && <span className='msg-error'>Descreva o problema para prosseguir.</span>}
+          {errors.feedback && <span className='msg-error'>Descreva o problema para prosseguir.</span>}
         </div>
       </form>
     </div>
