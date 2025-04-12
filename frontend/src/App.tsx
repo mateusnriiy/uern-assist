@@ -12,25 +12,27 @@ function App() {
   const [formDados, setFormDados] = useState<FormDados>({
     nome: '',
     pcId: '',
-    feed: '',
+    feedback: '',
+    departamento: 'Laboratório'
   })
 
-  const [errors, setErrors] = useState<{ nome: boolean; pcId: boolean; feed: boolean }>({
+  const [errors, setErrors] = useState<{ nome: boolean; pcId: boolean; feedback: boolean }>({
     nome: false,
     pcId: false,
-    feed: false
+    feedback: false
   })
 
   const [isSuccess, setIsSuccess] = useState(false);
 
   const handleShowModal = () => {
-    if (!errors.nome && !errors.pcId && !errors.feed) setIsSuccess(true);
+    ///if (!errors.nome && !errors.pcId && !errors.feedback) setIsSuccess(true);
+    setIsSuccess(true);
   }
 
   useEffect(() => {
     if (isSuccess) {
-      setFormDados({ nome: '', pcId: '', feed: '' });
-      setErrors({ nome: false, pcId: false, feed: false });
+      setFormDados({ nome: '', pcId: '', feedback: '', departamento: 'Laboratório' });
+      setErrors({ nome: false, pcId: false, feedback: false });
     }
   }, [isSuccess]);
 

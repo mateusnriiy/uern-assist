@@ -15,6 +15,6 @@ namespace backend.DTOs
         [MinLength(5, ErrorMessage = "A descrição precisa ter pelo menos cinco caracteres.")]
         public string Feedback { get; set; }
 
-        public string Departamento { get; set; }
+        public string? Departamento { get; set; }
     }
 }

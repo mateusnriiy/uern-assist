@@ -29,7 +29,7 @@ namespace backend.Services
                 }
 
                 resposta.Dados = solicitacao;
-                resposta.Mensagem = "Solicitacao localizada"; 
+                resposta.Mensagem = "Solicitacao localizada";
 
                 return resposta;
             }
@@ -56,6 +56,7 @@ namespace backend.Services
                 };
 
                 _context.Add(solicitacao);
+                await _context.SaveChangesAsync();
                 resposta.Dados = await _context.Solicitacoes.ToListAsync();
                 return resposta;
 
@@ -139,7 +140,7 @@ namespace backend.Services
 
                 resposta.Dados = solicitacoes;
 
-                return resposta; 
+                return resposta;
             }
             catch (Exception ex)
             {
