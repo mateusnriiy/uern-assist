@@ -1,4 +1,4 @@
-# 🌐 GERAL
+#GERAL
 
 # Arquivos de ambiente
 .env
@@ -36,7 +36,7 @@ dist-ssr/
 .next/
 out/
 
-# 🧪 TESTES E COVERAGE
+#TESTES E COVERAGE
 
 coverage/
 .nyc_output/
@@ -45,7 +45,7 @@ coverage/
 *.spec.ts
 *.spec.js
 
-# 🧠 EDITORES E IDEs
+#EDITORES E IDEs
 
 # VS Code
 .vscode/
