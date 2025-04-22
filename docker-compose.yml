@@ -1,40 +1,48 @@
-version: '3.8'
-
+#version: "3.8"
 services:
-  database:
-    image: mcr.microsoft.com/mssql/server:latest
-    container_name: dbsqlserver
+  db:
+    container_name: app-db
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    env_file:
+      - .env
+    environment:
+      SA_PASSWORD: ${SA_PASSWORD}
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Developer"
     ports:
       - "1433:1433"
-    environment:
-      SA_PASSWORD: ${DB_PASSWORD}
-      ACCEPT_EULA: "Y"
     volumes:
-      - sqlserver_data:/var/opt/mssql
+      - sql_data:/var/opt/mssql
     restart: unless-stopped
 
   backend:
-    build: ./backend
-    container_name: backend
+    container_name: app-backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     ports:
       - "5000:5000"
-    depends_on:
-      - database
     environment:
-      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
-      - ConnectionStrings__DefaultConnection=Server=${DB_SERVER};Database=${DB_NAME};User=${DB_USER};Password=${DB_PASSWORD};TrustServerCertificate=${DB_TRUST_SERVER_CERTIFICATE}
-    restart: always
+      - DB_SERVER=${DB_SERVER}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_TRUST_SERVER_CERTIFICATE=true
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - db
+    restart: unless-stopped
 
   frontend:
-    build: ./frontend
-    container_name: frontend
+    container_name: app-frontend
+    build:
+      context: frontend
+      dockerfile: Dockerfile
     ports:
-      - "5173:5173"
+      - "3000:80"
     depends_on:
       - backend
-    volumes:
-      - ./frontend/assets:/usr/share/nginx/html/assets
-    restart: always
+    restart: unless-stopped
 
 volumes:
-  sqlserver_data:
+  sql_data:
