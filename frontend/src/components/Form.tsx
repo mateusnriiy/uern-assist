@@ -2,7 +2,8 @@ import '../css/index.css';
 import { FormProps } from '../interfaces/FormInterface';
 
 function Form({ formDados, setFormDados, errors, setErrors }: FormProps) {
-  const pcs = Array.from({ length: 28 }, (_, i) => `CAN-${(i + 1).toString().padStart(2, '0')}`);
+  const pcs = Array.from({ length: 28 }, (_, i) => `MIC-${(i + 1).toString().padStart(2, '0')}`);
+  const setores = ["Laboratório CAN", "Laboratório CC"];
 
   const handleValidation = (campo: string, value: string) => {
     setErrors((prevErrors) => ({
@@ -28,6 +29,21 @@ function Form({ formDados, setFormDados, errors, setErrors }: FormProps) {
             className={`input input-name ${errors.nome ? 'ef-error' : ''}`}
             type="text" />
           {errors.nome && <span style={{ marginTop: "5px" }} className='msg-error'>Nome deve ter pelo menos três caracteres.</span>}
+        </div>
+
+        <div className='custom-select'>
+          <label>Setor</label>
+          <select
+            value={formDados.setorId || ""}
+            className={`select-content ${errors.setorId ? 'ef-error' : ''}`}
+            onBlur={(e) => handleValidation('setorId', e.target.value)}
+            onChange={(e) => handleChange(e.target.value, 'setorId')}>
+            <option disabled={true} value="">Selecione um setor</option>
+            {setores.map((setor) => (
+              <option key={setor} value={setor}>{setor}</option>
+            ))}
+          </select>
+          {errors.setorId && <span style={{ marginTop: "5px" }} className='msg-error'>Selecione um setor para prosseguir.</span>}
         </div>
 
         <div className='custom-select'>
